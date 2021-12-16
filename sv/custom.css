@@ -1,102 +1,104 @@
 ::-webkit-scrollbar {
-    width:6px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: rgba(0, 0, 0, 0.52);
-    border-radius: 10px; 
-} 
+  background: rgba(0, 0, 0, 0.52);
+  border-radius: 10px;
+}
 ::-webkit-scrollbar-track {
-   background: rgba(0, 0, 0, 0.25); 
+  background: rgba(0, 0, 0, 0.25);
 }
 
 @font-face {
-	font-family: vazir;
-	font-style: normal;
-	font-weight: normal;
-	src: url('fonts/Vazir.eot');
-	src: url('fonts/Vazir.eot?#iefix') format('embedded-opentype'),  /* IE6-8 */
-	url('fonts/Vazir.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
-	url('fonts/Vazir.ttf') format('truetype');
+  font-family: vazir;
+  font-style: normal;
+  font-weight: normal;
+  src: url("fonts/Vazir.eot");
+  src: url("fonts/Vazir.eot?#iefix") format("embedded-opentype"),
+    /* IE6-8 */ url("fonts/Vazir.woff") format("woff"),
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/ url("fonts/Vazir.ttf")
+      format("truetype");
 }
 body {
-  font-family:vazir;
-  font-size:13px;
-  direction:rtl;
-  line-height:1.7em;
+  font-family: vazir;
+  font-size: 13px;
+  direction: rtl;
+  line-height: 1.7em;
 }
 .page {
   display: block;
   margin: 0 auto;
   margin-bottom: 0.5cm;
-  padding:.5cm;
-  position:relative;
-  overflow:hidden;
+  padding: 0.5cm;
+  position: relative;
+  overflow: hidden;
 }
-.page.a4{  
+.page.a4 {
   width: 21cm;
   height: 29cm; /*29.7*/
 }
-.page.pa4{
+.page.pa4 {
   width: 29.7cm;
-  height: 21cm;  
+  height: 21cm;
 }
-.tlp-triangle{
-  position:absolute;
-  top:1cm;
-  left:1cm;
-  width:0px;
-  height:0px;
-  border-left:50px solid rgb(44, 44, 44);
-  border-right:50px solid  transparent;
-  border-top:50px solid rgb(55, 55, 55);
-  border-bottom:50px solid transparent;
-  margin-right:30px;
-}
-
-.trp-triangle{
-  position:absolute;
-  top:1cm;
-  right:1cm;
-  width:0px;
-  height:0px;
-  border-left:50px solid transparent;
-  border-right:50px solid  rgb(44, 44, 44);
-  border-top:50px solid rgb(55, 55, 55);
-  border-bottom:50px solid transparent;
+.tlp-triangle {
+  position: absolute;
+  top: 1cm;
+  left: 1cm;
+  width: 0px;
+  height: 0px;
+  border-left: 50px solid rgb(44, 44, 44);
+  border-right: 50px solid transparent;
+  border-top: 50px solid rgb(55, 55, 55);
+  border-bottom: 50px solid transparent;
+  margin-right: 30px;
 }
 
-.brp-triangle{
-  position:absolute;
-  bottom:1cm;
-  right:1cm;
-  width:0px;
-  height:0px;
-  border-left:50px solid transparent;
-  border-right:50px solid  rgb(44, 44, 44);
-  border-top:50px solid transparent;
-  border-bottom:50px solid rgb(55, 55, 55);
+.trp-triangle {
+  position: absolute;
+  top: 1cm;
+  right: 1cm;
+  width: 0px;
+  height: 0px;
+  border-left: 50px solid transparent;
+  border-right: 50px solid rgb(44, 44, 44);
+  border-top: 50px solid rgb(55, 55, 55);
+  border-bottom: 50px solid transparent;
 }
 
-.blp-triangle{
-  position:absolute;
-  bottom:1cm;
-  left:1cm;
-  width:0px;
-  height:0px;
-  border-left:50px solid rgb(44, 44, 44);
-  border-right:50px solid  transparent;
-  border-top:50px solid transparent;
-  border-bottom:50px solid rgb(55, 55, 55);
-  margin-right:30px;
+.brp-triangle {
+  position: absolute;
+  bottom: 1cm;
+  right: 1cm;
+  width: 0px;
+  height: 0px;
+  border-left: 50px solid transparent;
+  border-right: 50px solid rgb(44, 44, 44);
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid rgb(55, 55, 55);
 }
-.head{
- direction:ltr;
-  text-align:center;
-  margin-top:100px;
+
+.blp-triangle {
+  position: absolute;
+  bottom: 1cm;
+  left: 1cm;
+  width: 0px;
+  height: 0px;
+  border-left: 50px solid rgb(44, 44, 44);
+  border-right: 50px solid transparent;
+  border-top: 50px solid transparent;
+  border-bottom: 50px solid rgb(55, 55, 55);
+  margin-right: 30px;
 }
-.content{
-	padding:.8cm;
+.head {
+  direction: ltr;
+  text-align: center;
+  margin-top: 100px;
+}
+.content {
+  padding: 0.8cm;
+  padding-top: 100px;
 }
 .hex {
   display: inline-block;
@@ -105,19 +107,20 @@ body {
   width: 14px;
   height: 8.08px;
 }
-.hex.big{
+.hex.big {
   width: 18px;
   height: 10.39px;
-  background: rgb(44, 44, 44)
+  background: rgb(44, 44, 44);
 }
-.hex.x{
-	background: #c1c1c1;
+.hex.x {
+  background: #c1c1c1;
 }
-.hex.h{
-	background: #acc7e2;
+.hex.h {
+  background: #acc7e2;
 }
-.hex:before, .hex:after {
-  content: '';
+.hex:before,
+.hex:after {
+  content: "";
   position: absolute;
   left: 0;
   width: inherit;
@@ -140,106 +143,106 @@ body {
   transform: rotate(-60deg);
 }
 
-
 .hexagon {
-    -moz-transform: rotate(120deg);
-    -ms-transform: rotate(120deg);
-    -webkit-transform: rotate(120deg);
-    transform: rotate(120deg);
-    cursor: pointer;
-    height: 220px;
-    overflow: hidden;
-    visibility: hidden;
-    width: 110px;
-	position: absolute;
-    left: 44%;
-    top: -10px;
+  -moz-transform: rotate(120deg);
+  -ms-transform: rotate(120deg);
+  -webkit-transform: rotate(120deg);
+  transform: rotate(120deg);
+  cursor: pointer;
+  height: 300px;
+  overflow: hidden;
+  visibility: hidden;
+  width: 150px;
+  position: absolute;
+  left: 40%;
+  top: -10px;
+  border-radius: 10px;
 }
 .hex1 {
-    -moz-transform: rotate(-60deg);
-    -ms-transform: rotate(-60deg);
-    -webkit-transform: rotate(-60deg);
-    transform: rotate(-60deg);
-    height: 100%;
-    overflow: hidden;
-    width: 100%;
+  -moz-transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+  height: 100%;
+  overflow: hidden;
+  width: 100%;
 }
 .hex2 {
-    -moz-transform: rotate(-60deg);
-    -ms-transform: rotate(-60deg);
-    -webkit-transform: rotate(-60deg);
-    transform: rotate(-60deg);
-    height: 100%;
-    position: relative;
-    visibility: visible;
-    width: 100%;
-	background:url(img/mypic.jpg) center;
-	background-size:cover;
+  -moz-transform: rotate(-60deg);
+  -ms-transform: rotate(-60deg);
+  -webkit-transform: rotate(-60deg);
+  transform: rotate(-60deg);
+  height: 100%;
+  position: relative;
+  visibility: visible;
+  width: 100%;
+  background: url(img/mypic.jpg) center;
+  background-size: 115%;
 }
-hr{
+hr {
   height: 1px;
   padding: 0;
   color: #f5f5f5;
   background-color: #ddd;
   border: 0;
-  margin:10px auto;
+  margin: 10px auto;
 }
-.info{
-	display:inline-block;
-	padding:10px 20px;
+.info {
+  display: inline-block;
+  padding: 10px 20px;
 }
-.info .label{
-	display:inline-block;
-	margin-left:30px;
+.info .label {
+  display: inline-block;
+  margin-left: 30px;
 }
-.info .label img{
-	float:left;
-	margin-top: -5px;
-    margin-right: 15px;
-    width: 20px;
+.info .label img {
+  float: left;
+  margin-top: -5px;
+  margin-right: 15px;
+  width: 20px;
 }
-.exp{
-	text-align:right;
-	direction:rtl;
+.exp {
+  text-align: right;
+  direction: rtl;
 }
-.list{
-	direction:rtl;
-	margin-bottom: 15px;
+.list {
+  direction: rtl;
+  margin-bottom: 15px;
 }
-.skill{
-	text-align:right;
-	direction:rtl;
-	margin:5px;
-	word-wrap: break-word;
+.skill {
+  text-align: right;
+  direction: rtl;
+  margin: 5px;
+  word-wrap: break-word;
 }
-.skill label{
-	float:right;
+.skill label {
+  float: right;
 }
-.skill .hexgrp{
-	margin-right:80px;
+.skill .hexgrp {
+  margin-right: 80px;
 }
-.skill .hexgrp .hex{
-	margin-right:5px;
+.skill .hexgrp .hex {
+  margin-right: 5px;
 }
-.row{
-	direction:rtl;
-  display:inline-block;
-  width: 100%
+.row {
+  direction: rtl;
+  display: inline-block;
+  width: 100%;
 }
-.row .span{
-	vertical-align: top;
-	direction:rtl;
-	display:inline-block;
-	margin-left:20px;
+.row .span {
+  vertical-align: top;
+  direction: rtl;
+  display: inline-block;
+  margin-left: 20px;
 }
-.row .xspan{
-	vertical-align: top;
-	direction:rtl;
-	display:inline-block;
-  margin-left:20px;
-  width:30%
+.row .xspan {
+  vertical-align: top;
+  direction: rtl;
+  display: inline-block;
+  margin-left: 20px;
+  width: 30%;
 }
-a{
+a {
   color: #1a1a1b;
-    text-decoration: none;
+  text-decoration: none;
 }
