@@ -246,3 +246,8 @@ a {
   color: #1a1a1b;
   text-decoration: none;
 }
+.muted {
+  margin-right: 20px;
+  font-size: 11px;
+  color: #666;
+}
