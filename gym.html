@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>اپ تمرینی — برنامه ۳ روزه</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@100..900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Clean mobile-app UI — dark theme #000 — polished UX fixes */
+      :root {
+        --bg: #000;
+        --panel: #070708;
+        --card: #0b0b0d;
+        --muted: #9aa3af;
+        --accent: #06b6d4; /* Teal */
+        --accent2: #7c3aed; /* Violet */
+        --success: #10b981;
+        --glass: rgba(255, 255, 255, 0.06);
+        --glass-2: rgba(255, 255, 255, 0.04);
+        --text: #e9f0f6;
+      }
+      /* استفاده از Vazirmatn برای فارسی */
+      * {
+        box-sizing: border-box;
+        font-family: "Vazirmatn", system-ui, -apple-system, "Segoe UI", Roboto,
+          Arial, sans-serif;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* center like mobile app & responsive tweaks */
+      .wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        padding: 10px;
+      }
+      .app {
+        width: 100%;
+        max-width: 650px;
+        border: none;
+        box-shadow: none;
+        min-height: 100vh;
+      }
+      @media (min-width: 480px) {
+        .wrap {
+          align-items: center;
+        }
+        .app {
+          min-height: auto;
+        }
+      }
+
+      header {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 10px;
+      }
+      .title-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+      h1 {
+        font-size: 17px;
+        margin: 0;
+        font-weight: 900;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 12px;
+        text-align: left;
+      }
+
+      .tabs {
+        display: flex;
+        gap: 8px;
+        overflow-x: auto;
+        padding-bottom: 6px;
+        scroll-snap-type: x mandatory;
+      }
+      .tab {
+        flex: 0 0 auto;
+        padding: 8px 14px;
+        border-radius: 999px;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--muted);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        font-size: 13px;
+        font-weight: 700;
+        scroll-snap-align: start;
+        transition: all 0.2s;
+      }
+      .tab.active {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #021019;
+        border-color: transparent;
+        box-shadow: 0 6px 18px rgba(7, 12, 18, 0.45);
+      }
+
+      .stats {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
+      .stat {
+        flex: 1;
+        background: rgba(255, 255, 255, 0.1);
+        padding: 10px;
+        border-radius: 12px;
+        text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .stat strong {
+        display: block;
+        font-size: 18px;
+        font-weight: 900;
+      }
+      .stat .label {
+        color: var(--muted);
+        font-size: 12px;
+        margin-top: 4px;
+      }
+
+      .day-card {
+        margin-top: 12px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          transparent
+        );
+        border-radius: 14px;
+        padding: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .day-title {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .day-sub {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .ex-list {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      /* exercise card */
+      .exercise {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        align-items: flex-start;
+        padding: 14px;
+        border-radius: 18px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.012),
+          rgba(255, 255, 255, 0.006)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .ex-info-row {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        gap: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+        padding-bottom: 10px;
+      }
+      .ex-name {
+        font-weight: 900;
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 500;
+      }
+
+      /* Sets & Controls (Two-Column Layout) */
+      .sets-and-controls {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 8px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.01);
+        padding-bottom: 10px;
+      }
+      .sets {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        flex: 1 1 50%; /* Take up half the space */
+      }
+      .ctrls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: flex-end;
+        flex: 0 0 auto; /* Keep it compact */
+      }
+      .set {
+        min-width: 38px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        text-align: center;
+        font-weight: 800;
+        color: var(--text);
+        transition: all 0.12s ease;
+        font-size: 13px;
+      }
+      .set:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+      }
+      .set.done {
+        background: linear-gradient(90deg, var(--success), #059669);
+        color: #04120b;
+        box-shadow: 0 4px 12px rgba(4, 8, 6, 0.25);
+      }
+
+      /* controls */
+      .btn {
+        padding: 5px 5px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--text);
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 13px;
+        transition: all 0.15s;
+      }
+      .btn.ghost {
+        color: var(--muted);
+      }
+      .btn.primary {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #021019;
+        border: none;
+        font-weight: 800;
+      }
+
+      /* Link/search section */
+      .link-section {
+        width: 100%;
+        padding-top: 10px;
+      }
+      .link-row {
+        display: flex;
+        gap: 6px;
+        align-items: center;
+        flex-wrap: nowrap;
+        margin-bottom: 8px;
+        justify-content: space-between;
+      } /* nowrap for one row */
+      .link-btn {
+        flex: 1; /* Share space evenly */
+        min-width: auto;
+        padding: 8px 8px; /* Compact padding */
+        border-radius: 10px;
+        background: var(--glass);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        cursor: pointer;
+        font-weight: 700;
+        font-size: 12px;
+        text-align: center;
+      }
+      .link-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      /* Link Input and Save Button */
+      .link-input-wrapper {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        width: 100%;
+      }
+      input[type="text"] {
+        flex: 1;
+        width: 100%;
+        padding: 10px;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--text);
+        outline: none;
+        font-weight: 600;
+        font-size: 13px;
+      }
+      input[type="text"]::placeholder {
+        color: var(--muted);
+        font-weight: 500;
+      }
+
+      /* CUSTOM SELECT */
+      .custom-select {
+        position: relative;
+        display: block;
+        width: 100%;
+        margin-top: 0px;
+      }
+      .custom-select select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        width: 100%;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: var(--glass-2);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        color: var(--text);
+        font-weight: 700;
+        font-size: 13px;
+        /* Custom styles for the first option (Original name) */
+      }
+      .custom-select select option:first-child {
+        font-weight: 900;
+      }
+      .custom-select:after {
+        content: "▼";
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--muted);
+        font-size: 10px;
+        pointer-events: none;
+      }
+
+      /* compact bottom controls */
+      .controls {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        margin-top: 16px;
+        flex-wrap: wrap;
+      }
+      .controls .btn {
+        flex: 1;
+        min-width: calc(50% - 4px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="app" role="application" aria-label="اپ تمرینی">
+        <header>
+          <div class="title-row">
+            <h1>اپ تمرینی — برنامه ۳ روزه</h1>
+            <div class="meta">قد: 190cm • وزن: 92kg • هدف: حجم + قدرت</div>
+          </div>
+
+          <div class="tabs" id="tabs" aria-label="روزها"></div>
+
+          <div class="stats" aria-hidden="false">
+            <div class="stat">
+              <strong id="daysCompleted">0</strong>
+              <div class="label">روزهای تکمیل‌شده</div>
+            </div>
+            <div class="stat">
+              <strong id="totalSetsDone">0</strong>
+              <div class="label">ست‌های انجام‌شده</div>
+            </div>
+            <div class="stat">
+              <strong id="totalPct">0%</strong>
+              <div class="label">تکمیل کل</div>
+            </div>
+          </div>
+        </header>
+
+        <div class="day-card" id="dayCard">
+          <div class="day-title">
+            <div>
+              <div style="font-weight: 900; font-size: 18px" id="dayName">
+                روز 1 — PUSH
+              </div>
+              <div class="day-sub" id="daySubtitle">سینه، سرشانه، پشت‌بازو</div>
+            </div>
+            <div style="width: 140px">
+              <div
+                class="muted"
+                style="font-size: 12px; margin-bottom: 6px; text-align: left"
+              >
+                پیشرفت روز
+              </div>
+              <div class="progress"><i id="progressBar"></i></div>
+            </div>
+          </div>
+
+          <div class="ex-list" id="exList"></div>
+
+          <div class="controls">
+            <button id="completeDay" class="btn primary">تکمیل روز</button>
+            <button id="undoDay" class="btn ghost">واگردانی</button>
+            <button id="resetDay" class="btn ghost">ریست روز</button>
+            <button id="resetAll" class="btn ghost">ریست همه</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const program = [
+        {
+          id: "day1",
+          title: "روز 1 — PUSH",
+          subtitle: "سینه، سرشانه، پشت‌بازو",
+          exercises: [
+            {
+              key: "incline_barbell",
+              name: "پرس بالا سینه هالتر",
+              sets: ["8", "6", "6", "5"],
+              options: ["پرس بالا هالتر", "پرس بالا دمبل", "هاگ-پرس"],
+            },
+            {
+              key: "dumbbell_bench",
+              name: "پرس سینه دمبل",
+              sets: ["8", "8", "8", "8"],
+              options: ["پرس دمبل", "پرس هالتر برابر"],
+            },
+            {
+              key: "incline_fly",
+              name: "قفسه بالا سینه دمبل (فلاي)",
+              sets: ["10", "10", "8", "8"],
+              options: ["فلاي دمبل", "فلاي کابل"],
+            },
+            {
+              key: "cable_crossover",
+              name: "کراس اور (Cable Crossover)",
+              sets: ["12", "12", "12"],
+              options: ["کراس اور", "فلای کابل باسیم"],
+            },
+            {
+              key: "db_sh_press",
+              name: "پرس سرشانه دمبل",
+              sets: ["8", "8", "6", "6"],
+              options: ["پرس دمبل نشسته", "پرس هالتر"],
+            },
+            {
+              key: "lat_raise",
+              name: "نشر جانب دمبل",
+              sets: ["12", "12", "12", "12"],
+              options: ["نشر دمبل", "نشر جانب دستگاه"],
+            },
+            {
+              key: "rope_pushdown",
+              name: "پشت بازو طناب",
+              sets: ["12", "12", "10"],
+              options: ["پشت بازو طناب", "پشت بازو سیم‌کش"],
+            },
+            {
+              key: "dips",
+              name: "دیپ (پشت‌بازو)",
+              sets: ["10", "10", "8"],
+              options: ["دیپ بدن", "دیپ با وزنه"],
+            },
+            {
+              key: "skullcrusher",
+              name: "پشت بازو خوابیده دمبل (اسکال‌کراشر)",
+              sets: ["10", "10", "8"],
+              options: ["اسکال‌کراشر", "پشت بازو دمبل خوابیده"],
+            },
+            {
+              key: "cable_crunch",
+              name: "کرانچ کابل",
+              sets: ["15", "15", "15"],
+              options: ["کرانچ کابل", "کرانچ روی زمین"],
+            },
+            {
+              key: "leg_raise",
+              name: "لگ ریز",
+              sets: ["15", "15", "15"],
+              options: ["لگ ریز خوابیده", "لگ ریز آویزان"],
+            },
+          ],
+        },
+        {
+          id: "day2",
+          title: "روز 2 — PULL",
+          subtitle: "پشت، کول، جلو بازو",
+          exercises: [
+            {
+              key: "deadlift",
+              name: "ددلیفت",
+              sets: ["5", "5", "5", "5"],
+              options: ["ددلیفت کلاسیک", "ددلیفت رومانیایی", "دد سِمو"],
+            },
+            {
+              key: "lat_pulldown",
+              name: "لت سیم‌کش (Lat Pulldown)",
+              sets: ["10", "10", "8", "8"],
+              options: ["لت سیم‌کش", "بارفیکس با کمکی"],
+            },
+            {
+              key: "pullup",
+              name: "بارفیکس",
+              sets: ["تا ناتوانی"],
+              options: ["بارفیکس معمولی", "بارفیکس دست عریض"],
+            },
+            {
+              key: "seated_row",
+              name: "زیربغل قایقی دستگاه (Seated Row)",
+              sets: ["10", "10", "12"],
+              options: ["قایقی دستگاه", "روئینگ هالتر"],
+            },
+            {
+              key: "one_arm_row",
+              name: "روئینگ دمبل تک‌دست",
+              sets: ["8", "8", "8"],
+              options: ["روئینگ دمبل", "روئینگ کابل"],
+            },
+            {
+              key: "reverse_fly",
+              name: "فلای ریورس دستگاه",
+              sets: ["12", "12", "12"],
+              options: ["فلای ریورس", "دلتا پشت دمبل"],
+            },
+            {
+              key: "shrugs",
+              name: "شراگ دمبل",
+              sets: ["12", "10", "10"],
+              options: ["شراگ دمبل", "شراگ هالتر"],
+            },
+            {
+              key: "barbell_curl",
+              name: "جلو بازو هالتر",
+              sets: ["10", "10", "8"],
+              options: ["هالتر معمولی", "هالتر EZ"],
+            },
+            {
+              key: "alt_curl",
+              name: "جلو بازو دمبل متناوب",
+              sets: ["10", "10", "10"],
+              options: ["دمبل متناوب", "کابل تک دست"],
+            },
+            {
+              key: "hammer",
+              name: "جلو بازو چکشی",
+              sets: ["10", "10", "10"],
+              options: ["چکشی دمبل", "چکشی کابل"],
+            },
+            {
+              key: "wrist",
+              name: "ساعد با دمبل",
+              sets: ["12", "12", "12"],
+              options: ["ساعد دمبل", "ساعد هالتر"],
+            },
+          ],
+        },
+        {
+          id: "day3",
+          title: "روز 3 — LEGS",
+          subtitle: "پا، باسن، ساق",
+          exercises: [
+            {
+              key: "squat",
+              name: "اسکوات هالتر",
+              sets: ["8", "8", "6", "6"],
+              options: ["اسکوات استاندارد", "اسکوات جلو"],
+            },
+            {
+              key: "leg_press",
+              name: "پرس پا (Leg Press)",
+              sets: ["12", "12", "10", "10"],
+              options: ["پرس پا", "پرس یک پا"],
+            },
+            {
+              key: "leg_ext",
+              name: "جلور پا دستگاه (Leg Extension)",
+              sets: ["12", "12", "12"],
+              options: ["جلور پا دستگاه"],
+            },
+            {
+              key: "leg_curl",
+              name: "پشت پا خوابیده (Leg Curl)",
+              sets: ["12", "12", "10"],
+              options: ["پشت پا خوابیده", "پشت پا ایستاده"],
+            },
+            {
+              key: "rdl",
+              name: "ددلیفت رومانیایی",
+              sets: ["10", "10", "10"],
+              options: ["رومانیایی", "استیف"],
+            },
+            {
+              key: "hip_thrust",
+              name: "هیپ تراست",
+              sets: ["8", "8", "8", "8"],
+              options: ["هیپ تراست", "گلوت بریج"],
+            },
+            {
+              key: "calf",
+              name: "ساق ایستاده",
+              sets: ["15", "15", "15"],
+              options: ["ساق ایستاده", "ساق نشسته"],
+            },
+            {
+              key: "russian",
+              name: "راشن توویست",
+              sets: ["20", "20", "20"],
+              options: ["راشن تویست با وزنه", "بدون وزنه"],
+            },
+            {
+              key: "plank",
+              name: "پلانک",
+              sets: ["45s", "45s", "45s"],
+              options: ["پلانک استاندارد", "پلانک بغل"],
+            },
+          ],
+        },
+      ];
+
+      const STORAGE_KEY = "workout3_app_v3";
+      let state = JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}");
+      if (!state.daysCompleted) state.daysCompleted = 0;
+
+      function save() {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      }
+
+      const tabsEl = document.getElementById("tabs");
+      const exList = document.getElementById("exList");
+      const dayName = document.getElementById("dayName");
+      const daySubtitle = document.getElementById("daySubtitle");
+
+      // build tabs and init state
+      program.forEach((day, idx) => {
+        const t = document.createElement("div");
+        t.className = "tab" + (idx === 0 ? " active" : "");
+        t.textContent = day.title;
+        t.dataset.id = day.id;
+        t.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((x) => x.classList.remove("active"));
+          t.classList.add("active");
+          renderDay(day.id);
+        });
+        tabsEl.appendChild(t);
+        // Initialize state if not present
+        if (!state[day.id]) {
+          state[day.id] = { exercises: {} };
+          day.exercises.forEach((ex) => {
+            state[day.id].exercises[ex.key] = {
+              option: 0,
+              sets: ex.sets.map(() => false),
+              customLink: "",
+            };
+          });
+        }
+      });
+
+      function renderDay(dayId) {
+        const day = program.find((d) => d.id === dayId);
+        dayName.textContent = day.title;
+        daySubtitle.textContent = day.subtitle;
+        exList.innerHTML = "";
+
+        day.exercises.forEach((ex) => {
+          const item = document.createElement("div");
+          item.className = "exercise";
+
+          // 1. Ex Info Row: Name, Meta, Select
+          const infoRow = document.createElement("div");
+          infoRow.className = "ex-info-row";
+          const name = document.createElement("div");
+          name.className = "ex-name";
+          name.textContent = ex.name;
+          const meta = document.createElement("div");
+          meta.className = "muted";
+          meta.textContent =
+            ex.sets.length + " ست — مثال تکرار: " + ex.sets.join(", ");
+
+          // styled select
+          const customSelect = document.createElement("div");
+          customSelect.className = "custom-select";
+          const select = document.createElement("select");
+          select.dataset.key = ex.key; // Add data attribute to easily get key later
+
+          // Add the main exercise name as the first option
+          const mainOption = document.createElement("option");
+          mainOption.value = ex.name;
+          mainOption.textContent = "تمرین فعلی: " + ex.name;
+          select.appendChild(mainOption);
+
+          // Add other options
+          ex.options.forEach((opt) => {
+            const o = document.createElement("option");
+            o.value = opt; // Full option text
+            o.textContent = opt; // Full option text
+            select.appendChild(o);
+          });
+
+          // Use stored index (option) to set the selected value. Offset by 1 because of the new main option.
+          const storedOptionIndex = state[dayId].exercises[ex.key].option || 0;
+          select.selectedIndex = storedOptionIndex;
+
+          select.addEventListener("change", () => {
+            // Save the selected INDEX
+            state[dayId].exercises[ex.key].option = select.selectedIndex;
+            save();
+          });
+          customSelect.appendChild(select);
+
+          infoRow.appendChild(name);
+          infoRow.appendChild(meta);
+          infoRow.appendChild(customSelect);
+
+          // 2. Sets and Controls (Two-Column)
+          const setsControlsWrapper = document.createElement("div");
+          setsControlsWrapper.className = "sets-and-controls";
+
+          // Sets Column
+          const setsWrap = document.createElement("div");
+          setsWrap.className = "sets";
+          ex.sets.forEach((rep, si) => {
+            const s = document.createElement("div");
+            s.className = "set";
+            s.textContent = rep;
+            s.title = "علامت بزن هنگام اتمام این ست";
+            if (state[dayId].exercises[ex.key].sets[si])
+              s.classList.add("done");
+            s.addEventListener("click", () => {
+              state[dayId].exercises[ex.key].sets[si] =
+                !state[dayId].exercises[ex.key].sets[si];
+              s.classList.toggle("done");
+              updateProgress();
+              save();
+            });
+            setsWrap.appendChild(s);
+          });
+
+          // Controls Column
+          const controls = document.createElement("div");
+          controls.className = "ctrls";
+          const markAll = document.createElement("button");
+          markAll.className = "btn ghost";
+          markAll.textContent = "تکمیل همه";
+          markAll.addEventListener("click", () => {
+            state[dayId].exercises[ex.key].sets = state[dayId].exercises[
+              ex.key
+            ].sets.map(() => true);
+            renderDay(dayId);
+            save();
+          });
+          const clear = document.createElement("button");
+          clear.className = "btn ghost";
+          clear.textContent = "پاک کردن";
+          clear.addEventListener("click", () => {
+            state[dayId].exercises[ex.key].sets = state[dayId].exercises[
+              ex.key
+            ].sets.map(() => false);
+            renderDay(dayId);
+            save();
+          });
+          controls.appendChild(markAll);
+          controls.appendChild(clear);
+
+          setsControlsWrapper.appendChild(setsWrap);
+          setsControlsWrapper.appendChild(controls);
+
+          // 3. Link Section (Search & Custom Link)
+          const linkSection = document.createElement("div");
+          linkSection.className = "link-section";
+
+          // Search Buttons (Dynamically use SELECT value for query)
+          const linkRow = document.createElement("div");
+          linkRow.className = "link-row";
+
+          // Helper function to get current exercise name from select box
+          const getSelectedName = (isEnglish) => {
+            const selectedText =
+              select.options[select.selectedIndex].textContent;
+            // The first option includes "تمرین فعلی: " prefix, remove it for a clean search query
+            const cleanedText = selectedText.startsWith("تمرین فعلی: ")
+              ? selectedText.substring("تمرین فعلی: ".length)
+              : selectedText;
+
+            // Heuristic translation for English search
+            if (isEnglish) {
+              const engMap = {
+                "پرس بالا سینه هالتر": "Incline Barbell Press",
+                "پرس بالا هالتر": "Incline Barbell Press",
+                "پرس بالا دمبل": "Incline Dumbbell Press",
+                "هاگ-پرس": "Hack Press Machine",
+                "پرس سینه دمبل": "Dumbbell Bench Press",
+                "پرس دمبل": "Dumbbell Press",
+                "پرس هالتر برابر": "Barbell Bench Press",
+                "قفسه بالا سینه دمبل (فلاي)": "Incline Dumbbell Fly",
+                "فلاي دمبل": "Dumbbell Fly",
+                "فلاي کابل": "Cable Fly",
+                "کراس اور (Cable Crossover)": "Cable Crossover",
+                "کراس اور": "Cable Crossover",
+                "فلای کابل باسیم": "Cable Fly",
+                "پرس سرشانه دمبل": "Dumbbell Shoulder Press",
+                "پرس دمبل نشسته": "Seated Dumbbell Press",
+                "پرس هالتر": "Barbell Overhead Press",
+                "نشر جانب دمبل": "Dumbbell Lateral Raise",
+                "نشر دمبل": "Dumbbell Lateral Raise",
+                "نشر جانب دستگاه": "Machine Lateral Raise",
+                "پشت بازو طناب": "Rope Tricep Pushdown",
+                "پشت بازو سیم‌کش": "Cable Tricep Pushdown",
+                "دیپ (پشت‌بازو)": "Tricep Dips",
+                "دیپ بدن": "Bodyweight Dips",
+                "دیپ با وزنه": "Weighted Dips",
+                "پشت بازو خوابیده دمبل (اسکال‌کراشر)": "Dumbbell Skullcrusher",
+                اسکال‌کراشر: "Skullcrusher",
+                "پشت بازو دمبل خوابیده": "Lying Dumbbell Extension",
+                "کرانچ کابل": "Cable Crunch",
+                "کرانچ روی زمین": "Floor Crunch",
+                "لگ ریز": "Leg Raise",
+                "لگ ریز خوابیده": "Lying Leg Raise",
+                "لگ ریز آویزان": "Hanging Leg Raise",
+                ددلیفت: "Deadlift",
+                "ددلیفت کلاسیک": "Conventional Deadlift",
+                "ددلیفت رومانیایی": "Romanian Deadlift",
+                "دد سِمو": "Sumo Deadlift",
+                "لت سیم‌کش (Lat Pulldown)": "Lat Pulldown",
+                "لت سیم‌کش": "Lat Pulldown",
+                "بارفیکس با کمکی": "Assisted Pullups",
+                بارفیکس: "Pullups",
+                "بارفیکس معمولی": "Pullups",
+                "بارفیکس دست عریض": "Wide Grip Pullups",
+                "زیربغل قایقی دستگاه (Seated Row)": "Seated Cable Row",
+                "قایقی دستگاه": "Seated Cable Row",
+                "روئینگ هالتر": "Barbell Row",
+                "روئینگ دمبل تک‌دست": "One-Arm Dumbbell Row",
+                "روئینگ دمبل": "Dumbbell Row",
+                "روئینگ کابل": "Cable Row",
+                "فلای ریورس دستگاه": "Reverse Pec Deck Fly",
+                "فلای ریورس": "Reverse Fly",
+                "دلتا پشت دمبل": "Dumbbell Rear Delt Fly",
+                "شراگ دمبل": "Dumbbell Shrugs",
+                "شراگ هالتر": "Barbell Shrugs",
+                "جلو بازو هالتر": "Barbell Bicep Curl",
+                "هالتر معمولی": "Barbell Curl",
+                "هالتر EZ": "EZ Bar Curl",
+                "جلو بازو دمبل متناوب": "Alternating Dumbbell Curl",
+                "دمبل متناوب": "Alternating Dumbbell Curl",
+                "کابل تک دست": "Single Arm Cable Curl",
+                "جلو بازو چکشی": "Hammer Curl",
+                "چکشی دمبل": "Dumbbell Hammer Curl",
+                "چکشی کابل": "Cable Hammer Curl",
+                "ساعد با دمبل": "Dumbbell Wrist Curl",
+                "ساعد دمبل": "Dumbbell Wrist Curl",
+                "ساعد هالتر": "Barbell Wrist Curl",
+                "اسکوات هالتر": "Barbell Squat",
+                "اسکوات استاندارد": "Barbell Squat",
+                "اسکوات جلو": "Front Squat",
+                "پرس پا (Leg Press)": "Leg Press",
+                "پرس پا": "Leg Press",
+                "پرس یک پا": "Single Leg Press",
+                "جلور پا دستگاه (Leg Extension)": "Leg Extension",
+                "جلور پا دستگاه": "Leg Extension",
+                "پشت پا خوابیده (Leg Curl)": "Lying Leg Curl",
+                "پشت پا خوابیده": "Lying Leg Curl",
+                "پشت پا ایستاده": "Standing Leg Curl",
+                "ددلیفت رومانیایی": "Romanian Deadlift",
+                رومانیایی: "Romanian Deadlift",
+                استیف: "Stiff-Leg Deadlift",
+                "هیپ تراست": "Barbell Hip Thrust",
+                "گلوت بریج": "Glute Bridge",
+                "ساق ایستاده": "Standing Calf Raise",
+                "ساق نشسته": "Seated Calf Raise",
+                "راشن توویست": "Russian Twist",
+                "راشن تویست با وزنه": "Weighted Russian Twist",
+                "بدون وزنه": "Bodyweight Russian Twist",
+                پلانک: "Plank",
+                "پلانک استاندارد": "Plank",
+                "پلانک بغل": "Side Plank",
+              };
+              return engMap[cleanedText] || cleanedText + " exercise"; // Fallback to original + 'exercise'
+            }
+            return cleanedText; // Persian text for Google search
+          };
+
+          const ytBtn = document.createElement("button");
+          ytBtn.className = "link-btn";
+          ytBtn.textContent = "یوتیوب (EN)";
+          ytBtn.addEventListener("click", () => {
+            const q = encodeURIComponent(
+              getSelectedName(true) // English query
+            );
+            window.open(
+              "https://www.youtube.com/results?search_query=" + q,
+              "_blank"
+            );
+          });
+
+          const googleBtn = document.createElement("button");
+          googleBtn.className = "link-btn";
+          googleBtn.textContent = "گوگل (FA)";
+          googleBtn.addEventListener("click", () => {
+            const q = encodeURIComponent(getSelectedName(false)); // Persian query
+            window.open("https://www.google.com/search?q=" + q, "_blank");
+          });
+
+          const openCustom = document.createElement("button");
+          openCustom.className = "link-btn";
+          openCustom.textContent = "باز کردن لینک";
+          openCustom.addEventListener("click", () => {
+            const url = state[dayId].exercises[ex.key].customLink;
+            if (!url || url.trim() === "") return alert("لینک ذخیره نشده است.");
+            // Basic URL formatting check
+            const safeUrl = url.startsWith("http") ? url : "https://" + url;
+            window.open(safeUrl, "_blank");
+          });
+
+          linkRow.appendChild(ytBtn);
+          linkRow.appendChild(googleBtn);
+          linkRow.appendChild(openCustom);
+
+          // Link Input and Save Button
+          const linkInputWrapper = document.createElement("div");
+          linkInputWrapper.className = "link-input-wrapper";
+          const linkInput = document.createElement("input");
+          linkInput.type = "text";
+          linkInput.placeholder = "پیست کن لینک یوتیوب یا ویدیو آموزشی...";
+          linkInput.value = state[dayId].exercises[ex.key].customLink || "";
+          const saveLink = document.createElement("button");
+          saveLink.className = "btn primary";
+          saveLink.textContent = "ذخیره";
+          saveLink.addEventListener("click", () => {
+            state[dayId].exercises[ex.key].customLink = linkInput.value.trim();
+            save();
+            alert("لینک ذخیره شد");
+          });
+
+          linkInputWrapper.appendChild(linkInput);
+          linkInputWrapper.appendChild(saveLink);
+
+          linkSection.appendChild(linkRow);
+          linkSection.appendChild(linkInputWrapper);
+
+          // Final Assembly
+          item.appendChild(infoRow);
+          item.appendChild(setsControlsWrapper);
+          item.appendChild(linkSection);
+
+          exList.appendChild(item);
+        });
+
+        updateProgress();
+      }
+
+      function updateProgress() {
+        let done = 0,
+          total = 0,
+          dayDone = 0,
+          dayTotal = 0;
+        const activeTab = document.querySelector(".tab.active");
+        const activeId = activeTab ? activeTab.dataset.id : program[0].id;
+        program.forEach((day) => {
+          day.exercises.forEach((ex) => {
+            const arr = state[day.id].exercises[ex.key].sets;
+            arr.forEach((v) => {
+              if (v) done++;
+              total++;
+            });
+            if (day.id === activeId) {
+              arr.forEach((v) => {
+                if (v) dayDone++;
+                dayTotal++;
+              });
+            }
+          });
+        });
+        const pct = total ? Math.round((done / total) * 100) : 0;
+        const dayPct = dayTotal ? Math.round((dayDone / dayTotal) * 100) : 0;
+        document.getElementById("progressBar").style.width = dayPct + "%";
+        document.getElementById("totalPct").textContent = pct + "%";
+        document.getElementById("daysCompleted").textContent =
+          state.daysCompleted || 0;
+        document.getElementById("totalSetsDone").textContent = done;
+      }
+
+      // complete / undo / reset handlers
+      document.getElementById("completeDay").addEventListener("click", () => {
+        const activeTab = document.querySelector(".tab.active");
+        const activeId = activeTab.dataset.id;
+        let allDone = true;
+        program
+          .find((d) => d.id === activeId)
+          .exercises.forEach((ex) => {
+            if (state[activeId].exercises[ex.key].sets.some((s) => !s))
+              allDone = false;
+          });
+        if (!allDone) {
+          program
+            .find((d) => d.id === activeId)
+            .exercises.forEach(
+              (ex) =>
+                (state[activeId].exercises[ex.key].sets = state[
+                  activeId
+                ].exercises[ex.key].sets.map(() => true))
+            );
+          state.daysCompleted = (state.daysCompleted || 0) + 1;
+          save();
+          renderDay(activeId);
+          alert("روز تکمیل شد ✅");
+        } else alert("این روز از قبل کامل شده است.");
+      });
+      document.getElementById("undoDay").addEventListener("click", () => {
+        const activeTab = document.querySelector(".tab.active");
+        const activeId = activeTab.dataset.id;
+        if (confirm("واگردانی تکمیل روز؟")) {
+          program
+            .find((d) => d.id === activeId)
+            .exercises.forEach(
+              (ex) =>
+                (state[activeId].exercises[ex.key].sets = state[
+                  activeId
+                ].exercises[ex.key].sets.map(() => false))
+            );
+          state.daysCompleted = Math.max(0, (state.daysCompleted || 0) - 1);
+          save();
+          renderDay(activeId);
+        }
+      });
+      document.getElementById("resetDay").addEventListener("click", () => {
+        const activeTab = document.querySelector(".tab.active");
+        const activeId = activeTab.dataset.id;
+        if (confirm("ریست کلی این روز انجام شود؟")) {
+          Object.keys(state[activeId].exercises).forEach(
+            (k) =>
+              (state[activeId].exercises[k].sets = state[activeId].exercises[
+                k
+              ].sets.map(() => false))
+          );
+          save();
+          renderDay(activeId);
+        }
+      });
+      document.getElementById("resetAll").addEventListener("click", () => {
+        if (confirm("پاک کردن همه داده‌ها؟")) {
+          localStorage.removeItem(STORAGE_KEY);
+          location.reload();
+        }
+      });
+
+      // init & render first day
+      renderDay(program[0].id);
+      updateProgress(); // Initial check for total stats
+      save();
+    </script>
+  </body>
+</html>
